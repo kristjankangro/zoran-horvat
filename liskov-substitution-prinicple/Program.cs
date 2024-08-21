@@ -1,0 +1,3 @@
+﻿
+//ClassLiskovTest.Run();
+InterfaceLiskovTest.Run();
