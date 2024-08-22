@@ -121,38 +121,7 @@ namespace SudokuKata
                 {
                     stepChangeMade = false;
 
-                    #region Pick cells with only one candidate left
-
-                    int[] singleCandidateIndices =
-                        candidateMasks
-                            .Select((mask, index) => new
-                            {
-                                CandidatesCount = maskToOnesCount[mask],
-                                Index = index
-                            })
-                            .Where(tuple => tuple.CandidatesCount == 1)
-                            .Select(tuple => tuple.Index)
-                            .ToArray();
-
-                    if (singleCandidateIndices.Length > 0)
-                    {
-                        int pickSingleCandidateIndex = rng.Next(singleCandidateIndices.Length);
-                        int singleCandidateIndex = singleCandidateIndices[pickSingleCandidateIndex];
-                        int candidateMask = candidateMasks[singleCandidateIndex];
-                        int candidate = singleBitToIndex[candidateMask];
-
-                        int row = singleCandidateIndex / 9;
-                        int col = singleCandidateIndex % 9;
-
-
-                        state[singleCandidateIndex] = candidate + 1;
-                        candidateMasks[singleCandidateIndex] = 0;
-                        changeMade = true;
-
-                        Console.WriteLine("({0}, {1}) can only contain {2}.", row + 1, col + 1, candidate + 1);
-                    }
-
-                    #endregion
+                    (changeMade, stepChangeMade, state) = new SingleCandidateChangeRule(rng, maskToOnesCount, singleBitToIndex).Apply(candidateMasks, changeMade, stepChangeMade, state);
 
                     #region Try to find a number which can only appear in one place in a row/column/block
 
