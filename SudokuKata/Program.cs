@@ -784,8 +784,13 @@ namespace SudokuKata
 
         private static string ToPrintableString(int[] board)
         {
-            //suva hetkel
-            return string.Join("", board);
+            var sb = new StringBuilder();
+            for (var i = 0; i < board.Length; i++)
+            {
+                sb.Append(board[i]);
+                if ((i+1) % 9 == 0) sb.Append("\n");
+            }
+            return sb.ToString();
         } 
            
 
