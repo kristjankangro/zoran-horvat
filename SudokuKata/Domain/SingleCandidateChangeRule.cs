@@ -6,6 +6,9 @@ namespace SudokuKata
 {
     public class SingleCandidateChangeRule : IBoardChange
     {
+        private Dictionary<int, int> _maskToOnesCount { get; }
+        private Random _rng { get; }
+        private Dictionary<int, int> _singleBitToIndex { get;  }
         public SingleCandidateChangeRule(Random rng, Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex)
         {
             _rng = rng;
@@ -13,9 +16,7 @@ namespace SudokuKata
             _singleBitToIndex = singleBitToIndex;
         }
 
-        private Dictionary<int, int> _maskToOnesCount { get; }
-        private Random _rng { get; }
-        private Dictionary<int, int> _singleBitToIndex { get;  }
+       
 
         public (bool changeMade, bool stepChangeMade, int[] nextBoard) Apply(int[] candidateMasks, bool changeMade, bool stepChangeMade, int[] board)
         {

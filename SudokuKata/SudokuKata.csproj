@@ -43,10 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IBoardChange.cs" />
+    <Compile Include="Domain\IBoardChange.cs" />
+    <Compile Include="Domain\SingleCandidateChangeRule.cs" />
+    <Compile Include="Domain\SingleCandidateForPlaceRule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SingleCandidateChangeRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
