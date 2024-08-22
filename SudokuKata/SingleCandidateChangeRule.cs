@@ -48,7 +48,7 @@ namespace SudokuKata
                 Console.WriteLine("({0}, {1}) can only contain {2}.", row + 1, col + 1, candidate + 1);
             }
 
-            throw new System.NotImplementedException();
+            return (changeMade, stepChangeMade, board);
         }
     }
 }
