@@ -10,10 +10,10 @@ namespace SudokuKata
         static void Play()
         {
             int[] solvedState = CreatePopulatedBoard();
-            PrintToConsole(solvedState, "\nFinal look of the solved board:");
+            Presentation.PrintToConsole(solvedState, "\nFinal look of the solved board:");
             
             var initialState = CreateInitialBoard(solvedState);
-            PrintToConsole(initialState, "\nInitial look of the board to solve:");
+            Presentation.PrintToConsole(initialState, "\nInitial look of the board to solve:");
 
             var state = initialState.ToArray();
             var rng = new Random();
@@ -73,145 +73,15 @@ namespace SudokuKata
                     }
                 #endregion
 
-                #region Build a collection (named cellGroups) which maps cell indices into distinct groups (rows/columns/blocks)
-                var rowsIndices = state
-                    .Select((value, index) => new
-                    {
-                        Discriminator = index / 9,
-                        Description = $"row #{index / 9 + 1}",
-                        Index = index,
-                        Row = index / 9,
-                        Column = index % 9
-                    })
-                    .GroupBy(tuple => tuple.Discriminator);
-
-                var columnIndices = state
-                    .Select((value, index) => new
-                    {
-                        Discriminator = 9 + index % 9,
-                        Description = $"column #{index % 9 + 1}",
-                        Index = index,
-                        Row = index / 9,
-                        Column = index % 9
-                    })
-                    .GroupBy(tuple => tuple.Discriminator);
-
-                var blockIndices = state
-                    .Select((value, index) => new
-                    {
-                        Row = index / 9,
-                        Column = index % 9,
-                        Index = index
-                    })
-                    .Select(tuple => new
-                    {
-                        Discriminator = 18 + 3 * (tuple.Row / 3) + tuple.Column / 3,
-                        Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})",
-                        Index = tuple.Index,
-                        Row = tuple.Row,
-                        Column = tuple.Column
-                    })
-                    .GroupBy(tuple => tuple.Discriminator);
-
-                var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
-                #endregion
-
+                var cellGroups = BuildCellGroups(state);
                 bool stepChangeMade = true;
                 while (stepChangeMade)
                 {
                     stepChangeMade = false;
 
-                    (changeMade, stepChangeMade, state) = new SingleCandidateChangeRule(rng, maskToOnesCount, singleBitToIndex).Apply(candidateMasks, changeMade, stepChangeMade, state);
+                    (changeMade, stepChangeMade, state) = new SingleCandidateRule(rng, maskToOnesCount, singleBitToIndex).Apply(candidateMasks, changeMade, stepChangeMade, state);
                     (changeMade, stepChangeMade, state) = new SingleCandidateForPlaceRule(rng).Apply(candidateMasks, changeMade, stepChangeMade, state);
-
-               
-                    #region Try to find pairs of digits in the same row/column/block and remove them from other colliding cells
-                    if (!changeMade)
-                    {
-                        IEnumerable<int> twoDigitMasks =
-                            candidateMasks.Where(mask => maskToOnesCount[mask] == 2).Distinct().ToList();
-
-                        var groups =
-                            twoDigitMasks
-                                .SelectMany(mask =>
-                                    cellGroups
-                                        .Where(group => group.Count(tuple => candidateMasks[tuple.Index] == mask) == 2)
-                                        .Where(group => group.Any(tuple => candidateMasks[tuple.Index] != mask && (candidateMasks[tuple.Index] & mask) > 0))
-                                        .Select(group => new
-                                        {
-                                            Mask = mask,
-                                            Discriminator = group.Key,
-                                            Description = group.First().Description,
-                                            Cells = group
-                                        }))
-                                .ToList();
-
-                        if (groups.Any())
-                        {
-                            foreach (var group in groups)
-                            {
-                                var cells =
-                                    group.Cells
-                                        .Where(
-                                            cell =>
-                                                candidateMasks[cell.Index] != group.Mask &&
-                                                (candidateMasks[cell.Index] & group.Mask) > 0)
-                                        .ToList();
-
-                                var maskCells =
-                                    group.Cells
-                                        .Where(cell => candidateMasks[cell.Index] == group.Mask)
-                                        .ToArray();
-
-
-                                if (cells.Any())
-                                {
-                                    int upper = 0;
-                                    int lower = 0;
-                                    int temp = group.Mask;
-
-                                    int value = 1;
-                                    while (temp > 0)
-                                    {
-                                        if ((temp & 1) > 0)
-                                        {
-                                            lower = upper;
-                                            upper = value;
-                                        }
-                                        temp = temp >> 1;
-                                        value += 1;
-                                    }
-
-                                    Console.WriteLine(
-                                        $"Values {lower} and {upper} in {group.Description} are in cells ({maskCells[0].Row + 1}, {maskCells[0].Column + 1}) and ({maskCells[1].Row + 1}, {maskCells[1].Column + 1}).");
-
-                                    foreach (var cell in cells)
-                                    {
-                                        int maskToRemove = candidateMasks[cell.Index] & group.Mask;
-                                        List<int> valuesToRemove = new List<int>();
-                                        int curValue = 1;
-                                        while (maskToRemove > 0)
-                                        {
-                                            if ((maskToRemove & 1) > 0)
-                                            {
-                                                valuesToRemove.Add(curValue);
-                                            }
-                                            maskToRemove = maskToRemove >> 1;
-                                            curValue += 1;
-                                        }
-
-                                        string valuesReport = string.Join(", ", valuesToRemove.ToArray());
-                                        Console.WriteLine($"{valuesReport} cannot appear in ({cell.Row + 1}, {cell.Column + 1}).");
-
-                                        candidateMasks[cell.Index] &= ~group.Mask;
-                                        stepChangeMade = true;
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-                    #endregion
+                    (changeMade, stepChangeMade, state) = new TwoNumbersInTwoCellsRule(maskToOnesCount, cellGroups).Apply(candidateMasks, changeMade, stepChangeMade, state);
 
                     #region Try to find groups of digits of size N which only appear in N cells within row/column/block
                     // When a set of N digits only appears in N cells within row/column/block, then no other digit can appear in the same set of cells
@@ -599,7 +469,7 @@ namespace SudokuKata
 
                 if (changeMade)
                 {
-                    PrintToConsole(state, string.Empty);
+                    Presentation.PrintToConsole(state, string.Empty);
                 }
             }
         }
@@ -648,21 +518,6 @@ namespace SudokuKata
             return state;
         }
 
-        private static void PrintToConsole(int[] board, string label) => 
-            
-            Console.WriteLine($"{label}\n{ToPrintableString(board)}");
-
-        private static string ToPrintableString(int[] board)
-        {
-            var sb = new StringBuilder();
-            for (var i = 0; i < board.Length; i++)
-            {
-                sb.Append(board[i]);
-                if ((i+1) % 9 == 0) sb.Append("\n");
-            }
-            return sb.ToString();
-        } 
-           
 
         private static int[] CreatePopulatedBoard()
         {
@@ -823,6 +678,50 @@ namespace SudokuKata
             return stateStack.Peek();
         }
 
+        private static List<IGrouping<int, CellGroup>> BuildCellGroups(int[] state)
+        {
+            var rowsIndices = state
+                .Select((value, index) => new CellGroup
+                {
+                    Discriminator = index / 9,
+                    Description = $"row #{index / 9 + 1}",
+                    Index = index,
+                    Row = index / 9,
+                    Column = index % 9
+                })
+                .GroupBy(tuple => tuple.Discriminator);
+
+            var columnIndices = state
+                .Select((value, index) => new CellGroup
+                {
+                    Discriminator = 9 + index % 9,
+                    Description = $"column #{index % 9 + 1}",
+                    Index = index,
+                    Row = index / 9,
+                    Column = index % 9
+                })
+                .GroupBy(tuple => tuple.Discriminator);
+
+            var blockIndices = state
+                .Select((value, index) => new
+                {
+                    Row = index / 9,
+                    Column = index % 9,
+                    Index = index
+                })
+                .Select(tuple => new CellGroup
+                {
+                    Discriminator = 18 + 3 * (tuple.Row / 3) + tuple.Column / 3,
+                    Description = $"block ({tuple.Row / 3 + 1}, {tuple.Column / 3 + 1})",
+                    Index = tuple.Index,
+                    Row = tuple.Row,
+                    Column = tuple.Column
+                })
+                .GroupBy(tuple => tuple.Discriminator);
+
+            var cellGroups = rowsIndices.Concat(columnIndices).Concat(blockIndices).ToList();
+            return cellGroups;
+        }
         static void Main(string[] args)
         {
             Play();

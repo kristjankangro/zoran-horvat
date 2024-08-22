@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace SudokuKata
 {
-    public class SingleCandidateChangeRule : IBoardChange
+    public class SingleCandidateRule : IBoardChange
     {
         private Dictionary<int, int> _maskToOnesCount { get; }
         private Random _rng { get; }
         private Dictionary<int, int> _singleBitToIndex { get;  }
-        public SingleCandidateChangeRule(Random rng, Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex)
+        public SingleCandidateRule(Random rng, Dictionary<int, int> maskToOnesCount, Dictionary<int, int> singleBitToIndex)
         {
             _rng = rng;
             _maskToOnesCount = maskToOnesCount;

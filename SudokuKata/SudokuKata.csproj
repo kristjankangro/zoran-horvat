@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\CellGroup.cs" />
     <Compile Include="Domain\IBoardChange.cs" />
-    <Compile Include="Domain\SingleCandidateChangeRule.cs" />
+    <Compile Include="Domain\SingleCandidateRule.cs" />
     <Compile Include="Domain\SingleCandidateForPlaceRule.cs" />
+    <Compile Include="Domain\TwoNumbersInTwoCellsRule.cs" />
+    <Compile Include="Presentation\Presentation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
