@@ -46,11 +46,11 @@
     <Compile Include="Domain\CellGroup.cs" />
     <Compile Include="Domain\CompositeRule.cs" />
     <Compile Include="Domain\IBoardChange.cs" />
-    <Compile Include="Domain\NNumbersInNCellsRule.cs" />
     <Compile Include="Domain\RuleExtensions.cs" />
-    <Compile Include="Domain\SingleCandidateRule.cs" />
-    <Compile Include="Domain\SingleCandidateForPlaceRule.cs" />
-    <Compile Include="Domain\TwoNumbersInTwoCellsRule.cs" />
+    <Compile Include="Domain\Rules\NNumbersInNCellsRule.cs" />
+    <Compile Include="Domain\Rules\SingleCandidateForPlaceRule.cs" />
+    <Compile Include="Domain\Rules\SingleCandidateRule.cs" />
+    <Compile Include="Domain\Rules\TwoNumbersInTwoCellsRule.cs" />
     <Compile Include="Presentation\Presentation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

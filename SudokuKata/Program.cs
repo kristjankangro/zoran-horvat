@@ -7,7 +7,7 @@ namespace SudokuKata
 {
     class Program
     {
-        static void Play()
+        static void Play(Random rng)
         {
             int[] solvedState = CreatePopulatedBoard();
             Presentation.PrintToConsole(solvedState, "\nFinal look of the solved board:");
@@ -16,7 +16,7 @@ namespace SudokuKata
             Presentation.PrintToConsole(initialState, "\nInitial look of the board to solve:");
 
             var state = initialState.ToArray();
-            var rng = new Random();
+             
             #region Prepare lookup structures that will be used in further execution
             Console.WriteLine();
             Console.WriteLine(new string('=', 80));
@@ -622,7 +622,8 @@ namespace SudokuKata
         }
         static void Main(string[] args)
         {
-            Play();
+            
+            Play(new Random());
 
             Console.WriteLine();
             Console.Write("Press ENTER to exit... ");
