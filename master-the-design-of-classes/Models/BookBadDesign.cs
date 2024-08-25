@@ -1,6 +1,6 @@
 ﻿namespace Demo.Models;
 
-public class Book
+public class BookBadDesign
 {
     private string _title = string.Empty;
     private string _publisher = string.Empty;
@@ -29,7 +29,8 @@ public class Book
 
     public DateOnly PublicationDate { get; set; }
 
-    public Book(string title, IEnumerable<string> authors, string publisher, int edition, DateOnly publicationDate) =>
+    public BookBadDesign(string title, IEnumerable<string> authors, string publisher, int edition,
+        DateOnly publicationDate) =>
         (Title, AuthorsCollection, Publisher, Edition, PublicationDate) =
         (title, authors.Where(IsValidAuthor).ToList(), publisher, edition, publicationDate);
 
@@ -38,5 +39,40 @@ public class Book
         ArgumentException.ThrowIfNullOrWhiteSpace(author, nameof(author));
         return true;
     }
-}
 
+    public void AppendAuthor(string author)
+    {
+        IsValidAuthor(author);
+        AuthorsCollection.Add(author);
+    }
+
+    public void RemoveAuthor(string author)
+    {
+        AuthorsCollection.Remove(author);
+    }
+
+    public void AllAuthorsToUpperCase()
+    {
+        foreach (var author in AuthorsCollection)
+        {
+            author.ToUpperInvariant();
+        }
+    }
+
+    public bool MoveAuthorUp(string author)
+    {
+        return SwapAuthors(AuthorsCollection.IndexOf(author), 1);
+    }
+    
+    public bool MoveAuthorDown(string author)
+    {
+        return SwapAuthors(AuthorsCollection.IndexOf(author), -1);
+    }
+
+    private bool SwapAuthors(int index, int offset)
+    {
+        var (index1, index2) = (index, index + offset);
+        (AuthorsCollection[index1], AuthorsCollection[index2]) = (AuthorsCollection[index2], AuthorsCollection[index1]);
+        return true;
+    }
+}
