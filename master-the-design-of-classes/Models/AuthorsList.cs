@@ -3,36 +3,33 @@ using System.Globalization;
 
 namespace Demo.Models;
 
-public class AuthorsList : IEnumerable<string>
+public class AuthorsList : IEnumerable<Author>
 {
-    private List<string> AuthorsCollection { get; set; }
-    public CultureInfo Culture { get; set; }
+    private List<Author> AuthorsCollection { get; set; }
+    public IEnumerable<CultureInfo> Cultures => AuthorsCollection.Select(a => a.Culture).Distinct();
 
-    public AuthorsList(IEnumerable<string> authors) => AuthorsCollection = authors.Where(IsValidAuthor).ToList();
+    public AuthorsList(IEnumerable<Author> authors) => AuthorsCollection = authors.ToList();
 
-    private bool IsValidAuthor(string author)
+    private bool IsValidAuthor(Author author)
     {
         return !string.IsNullOrWhiteSpace(author) ? true : throw new ArgumentException(nameof(author));
     }
 
-    public void AppendAuthor(string author)
-    {
-        IsValidAuthor(author);
-        AuthorsCollection.Add(author);
-    }
+    public void AppendAuthor(Author author) => AuthorsCollection.Add(author);
 
-    public bool RemoveAuthor(string author) => AuthorsCollection.Remove(FilterFor(author));
+    public bool RemoveAuthor(string author) => AuthorsCollection.Remove(FilterByName(author));
 
     private string? FirstOrDefaultAuthor(string value) =>
         AuthorsCollection.FirstOrDefault(author => author.Equals(value, StringComparison.InvariantCultureIgnoreCase));
 
-    public void AllAuthorsToUpperCase() => AuthorsCollection.ChangeInPlace(Culture.TextInfo.ToUpper);
+    public void AllAuthorsToUpperCase() => AuthorsCollection.ForEach(author => author.ToUpper());
 
-    private Predicate<string> FilterFor(string value) =>
-        author => string.Compare(author, value, Culture, CompareOptions.IgnoreCase) == 0;
+    private Predicate<Author> FilterByName(string name) =>
+        author => author.IsMatch(name);
+    
 
-    public bool MoveAuthorUp(string author) => AuthorsCollection.SwapWithPrevious(FilterFor(author));
-    public bool MoveAuthorDown(string author) => AuthorsCollection.SwapWithNext(FilterFor(author));
+    public bool MoveAuthorUp(string author) => AuthorsCollection.SwapWithPrevious(FilterByName(author));
+    public bool MoveAuthorDown(string author) => AuthorsCollection.SwapWithNext(FilterByName(author));
 
     private bool SwapAuthors(int index, int offset)
     {
@@ -43,8 +40,8 @@ public class AuthorsList : IEnumerable<string>
         return true;
     }
 
-    public bool MoveAuthorToStart(string author) => AuthorsCollection.MoveToBeginning(FilterFor(author));
-    public bool MoveAuthorToEnd(string author) => AuthorsCollection.MoveToEnd(FilterFor(author));
+    public bool MoveAuthorToStart(string author) => AuthorsCollection.MoveToBeginning(FilterByName(author));
+    public bool MoveAuthorToEnd(string author) => AuthorsCollection.MoveToEnd(FilterByName(author));
 
     private bool MoveAuthorToExtreme(int index, int step)
     {
