@@ -2,7 +2,7 @@
 
 namespace Demo.Models;
 
-public class _BookBad
+public class BookBad
 {
     private string _title = string.Empty; //primitive type
     private string _publisher = string.Empty; //primitive type
@@ -33,7 +33,7 @@ public class _BookBad
     
     public CultureInfo Culture { get; set; }
 
-    public _BookBad(string title, IEnumerable<string> authors, string publisher, int edition,
+    public BookBad(string title, IEnumerable<string> authors, string publisher, int edition,
         DateOnly publicationDate) =>
         (Title, AuthorsCollection, Publisher, Edition, PublicationDate) =
         (title, authors.Where(IsValidAuthor).ToList(), publisher, edition, publicationDate);
