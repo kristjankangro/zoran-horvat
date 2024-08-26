@@ -1,10 +1,12 @@
 ﻿using System.Collections;
+using System.Globalization;
 
 namespace Demo.Models;
 
 public class AuthorsList : IEnumerable<string>
 {
     private List<string> AuthorsCollection { get; set; }
+    public CultureInfo Culture { get; set; }
 
     public AuthorsList(IEnumerable<string> authors) => AuthorsCollection = authors.Where(IsValidAuthor).ToList();
 
@@ -24,15 +26,10 @@ public class AuthorsList : IEnumerable<string>
     private string? FirstOrDefaultAuthor(string value) =>
         AuthorsCollection.FirstOrDefault(author => author.Equals(value, StringComparison.InvariantCultureIgnoreCase));
 
-    public void AllAuthorsToUpperCase()
-    {
-        foreach (var author in AuthorsCollection)
-        {
-            author.ToUpperInvariant();
-        }
-    }
+    public void AllAuthorsToUpperCase() => AuthorsCollection.ChangeInPlace(Culture.TextInfo.ToUpper);
 
-    private Predicate<string> FilterFor(string value) => author => author.Equals(value, StringComparison.InvariantCultureIgnoreCase);
+    private Predicate<string> FilterFor(string value) =>
+        author => string.Compare(author, value, Culture, CompareOptions.IgnoreCase) == 0;
 
     public bool MoveAuthorUp(string author) => AuthorsCollection.SwapWithPrevious(FilterFor(author));
     public bool MoveAuthorDown(string author) => AuthorsCollection.SwapWithNext(FilterFor(author));
