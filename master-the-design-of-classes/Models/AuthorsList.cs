@@ -10,17 +10,17 @@ public class AuthorsList : IEnumerable<Author>
 
     public AuthorsList(IEnumerable<Author> authors) => AuthorsCollection = authors.ToList();
 
-    private bool IsValidAuthor(Author author)
+    private bool IsValidAuthor(string name)
     {
-        return !string.IsNullOrWhiteSpace(author) ? true : throw new ArgumentException(nameof(author));
+        return !string.IsNullOrWhiteSpace(name) ? true : throw new ArgumentException(nameof(name));
     }
 
     public void AppendAuthor(Author author) => AuthorsCollection.Add(author);
 
     public bool RemoveAuthor(string author) => AuthorsCollection.Remove(FilterByName(author));
 
-    private string? FirstOrDefaultAuthor(string value) =>
-        AuthorsCollection.FirstOrDefault(author => author.Equals(value, StringComparison.InvariantCultureIgnoreCase));
+    private Author? FirstOrDefaultAuthor(string value) =>
+        AuthorsCollection.FirstOrDefault(author => author.IsMatch(value));
 
     public void AllAuthorsToUpperCase() => AuthorsCollection.ForEach(author => author.ToUpper());
 
@@ -54,7 +54,7 @@ public class AuthorsList : IEnumerable<Author>
         return result;
     }
 
-    public IEnumerator<string> GetEnumerator() => AuthorsCollection.GetEnumerator();
+    public IEnumerator<Author> GetEnumerator() => AuthorsCollection.GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }
