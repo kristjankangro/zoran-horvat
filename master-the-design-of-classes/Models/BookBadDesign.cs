@@ -63,7 +63,7 @@ public class BookBadDesign
     {
         return SwapAuthors(AuthorsCollection.IndexOf(author), 1);
     }
-    
+
     public bool MoveAuthorDown(string author)
     {
         return SwapAuthors(AuthorsCollection.IndexOf(author), -1);
@@ -74,5 +74,20 @@ public class BookBadDesign
         var (index1, index2) = (index, index + offset);
         (AuthorsCollection[index1], AuthorsCollection[index2]) = (AuthorsCollection[index2], AuthorsCollection[index1]);
         return true;
+    }
+
+    public bool MoveAuthorToStart(string author) => MoveAuthorToExtreme(AuthorsCollection.IndexOf(author), -1);
+
+    public bool MoveAuthorToEnd(string author) => MoveAuthorToExtreme(AuthorsCollection.IndexOf(author), 1);
+
+    private bool MoveAuthorToExtreme(int index, int step)
+    {
+        bool result = false;
+        while (SwapAuthors(index, step))
+        {
+            (index, result) = (index + step, true);
+        }
+
+        return result;
     }
 }
