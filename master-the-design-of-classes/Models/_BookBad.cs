@@ -1,10 +1,12 @@
-﻿namespace Demo.Models;
+﻿using System.Globalization;
 
-public class BookBadDesign
+namespace Demo.Models;
+
+public class _BookBad
 {
-    private string _title = string.Empty;
-    private string _publisher = string.Empty;
-    private int _edition;
+    private string _title = string.Empty; //primitive type
+    private string _publisher = string.Empty; //primitive type
+    private int _edition; //primitive type
 
     public string Title
     {
@@ -15,21 +17,23 @@ public class BookBadDesign
     public IEnumerable<string> Authors => AuthorsCollection;
     private List<string> AuthorsCollection { get; set; }
 
-    public string Publisher
+    public string Publisher //primitive type
     {
         get => _publisher;
         set => _publisher = !string.IsNullOrWhiteSpace(value) ? value : throw new ArgumentException(nameof(Publisher));
     }
 
-    public int Edition
+    public int Edition //primitive type
     {
         get => _edition;
         set => _edition = value > 0 ? value : throw new ArgumentOutOfRangeException(nameof(Edition));
     }
 
     public DateOnly PublicationDate { get; set; }
+    
+    public CultureInfo Culture { get; set; }
 
-    public BookBadDesign(string title, IEnumerable<string> authors, string publisher, int edition,
+    public _BookBad(string title, IEnumerable<string> authors, string publisher, int edition,
         DateOnly publicationDate) =>
         (Title, AuthorsCollection, Publisher, Edition, PublicationDate) =
         (title, authors.Where(IsValidAuthor).ToList(), publisher, edition, publicationDate);
@@ -46,10 +50,11 @@ public class BookBadDesign
         AuthorsCollection.Add(author);
     }
 
-    public void RemoveAuthor(string author)
-    {
-        AuthorsCollection.Remove(author);
-    }
+    public bool RemoveAuthor(string author) =>
+        FirstOrDEfaultAuthor(author) is string found && AuthorsCollection.Remove(found);
+
+    private string? FirstOrDEfaultAuthor(string author) =>
+        AuthorsCollection.FirstOrDefault(author => author.Equals(author, StringComparison.InvariantCultureIgnoreCase));
 
     public void AllAuthorsToUpperCase()
     {
