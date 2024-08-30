@@ -1,4 +1,6 @@
-﻿class FileServices
+﻿namespace async_await_cancellation;
+
+class FileServices
 {
     public async Task GenerateTextFile(CancellationToken token, string path, int lengthMb)
     {
@@ -32,4 +34,3 @@
         }
     }
 }
-
