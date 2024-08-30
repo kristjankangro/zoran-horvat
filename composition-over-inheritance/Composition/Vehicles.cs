@@ -1,5 +1,4 @@
-﻿// namespace Demo.Composition;
-//
+﻿//
 // static class Vehicles
 // {
 //     public static VehicleComposition Aircraft(MovingAbility lowAltFlying, MovingAbility highAltFlying) => new()

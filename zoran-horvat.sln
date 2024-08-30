@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SudokuKata", "SudokuKata\Su
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "master-the-desing-of-classes", "master-the-design-of-classes\master-the-desing-of-classes.csproj", "{DBB0BA0C-5DCF-4E12-BD2A-663E20302305}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-await-cancellation", "async-await-cancellation\async-await-cancellation.csproj", "{329776BE-0AD4-4F7E-902D-93230FE0A75A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{DBB0BA0C-5DCF-4E12-BD2A-663E20302305}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBB0BA0C-5DCF-4E12-BD2A-663E20302305}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBB0BA0C-5DCF-4E12-BD2A-663E20302305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329776BE-0AD4-4F7E-902D-93230FE0A75A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329776BE-0AD4-4F7E-902D-93230FE0A75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329776BE-0AD4-4F7E-902D-93230FE0A75A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329776BE-0AD4-4F7E-902D-93230FE0A75A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
