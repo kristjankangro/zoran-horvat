@@ -7,8 +7,7 @@ public class DefaultIfEmptyDiscount : IDiscount
     private readonly IDiscount _primary;
     private readonly IDiscount _alternate;
 
-    public DefaultIfEmptyDiscount(IDiscount primary, IDiscount alternate) =>
-        (_primary, _alternate) = (primary, alternate);
+    public DefaultIfEmptyDiscount(IDiscount primary, IDiscount alternate) => (_primary, _alternate) = (primary, alternate);
 
     public IEnumerable<DiscountApplication> GetDiscountAmounts(Money price, DiscountContext context)
     {
