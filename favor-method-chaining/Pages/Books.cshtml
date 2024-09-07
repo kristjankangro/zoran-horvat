@@ -1,0 +1,40 @@
+﻿@page
+@using Bookstore.Domain.Models
+@model BooksModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@if (Model.PublishedAuthorInitials.Any())
+{
+    <div class="text-left">
+        <a class="btn btn-primary" href="/books">All</a>
+        @foreach (string initial in Model.PublishedAuthorInitials)
+        {
+            <a class="btn btn-primary" href="/books?initial=@initial.ToLower()">@initial.ToUpper()</a>
+        }
+    </div>
+}
+
+<div class="text-center">
+    <table class="table table-striped">
+        <thead>
+            <th scope="col">#</th>
+            <th scope="col" style="text-align: left">Author(s)</th>
+            <th scope="col" style="text-align: left">Title</th>
+        </thead>
+        <tbody>
+            @foreach (var (book, ordinal) in Model.Books.Select((book, index) => (book, index + 1)))
+            {
+                <tr>
+                    <td>@ordinal</td>
+                    <td style="text-align: left">
+                        <partial name="_CitationPartial" model="@book.authors" />
+                    </td>
+                    <td style="text-align: left">
+                        <partial name="_CitationPartial" model="@book.title" />
+                    </td>
+                </tr>
+            }
+    </table>
+</div>

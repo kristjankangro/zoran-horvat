@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "master-the-desing-of-classe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "async-await-cancellation", "async-await-cancellation\async-await-cancellation.csproj", "{329776BE-0AD4-4F7E-902D-93230FE0A75A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "favor-method-chaining", "favor-method-chaining\favor-method-chaining.csproj", "{962C95AB-33A5-46E8-BAE8-9AF23910ADBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{329776BE-0AD4-4F7E-902D-93230FE0A75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{329776BE-0AD4-4F7E-902D-93230FE0A75A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{329776BE-0AD4-4F7E-902D-93230FE0A75A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{962C95AB-33A5-46E8-BAE8-9AF23910ADBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{962C95AB-33A5-46E8-BAE8-9AF23910ADBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{962C95AB-33A5-46E8-BAE8-9AF23910ADBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{962C95AB-33A5-46E8-BAE8-9AF23910ADBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
