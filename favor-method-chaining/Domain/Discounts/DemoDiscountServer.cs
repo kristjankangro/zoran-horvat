@@ -19,8 +19,10 @@ public class DemoDiscountServer : IDiscountServer
     //nested calls todod fix to chain
     public IDiscount GetDiscounts() =>
         RelativeDiscount(.3M).OnTopic("patterns").OnBooksBy(_martinFowler)
-            .OrElse(RelativeDiscount(.2M).OnTopic("patterns"))
-            .OrElse(RelativeDiscount(.1M).OnAllBooks());
+            .OrElse(
+                RelativeDiscount(.2M).OnTopic("patterns"))
+            .OrElse(
+                RelativeDiscount(.1M).OnAllBooks());
 
     private IDiscount RelativeDiscount(decimal fact) => new RelativeDiscount(fact);
 }
