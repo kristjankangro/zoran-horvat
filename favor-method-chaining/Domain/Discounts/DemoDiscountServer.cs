@@ -24,9 +24,10 @@ public class DemoDiscountServer : IDiscountServer
             OnTopic("patterns", RelativeDiscount(.2M)),
             OnAllBooks(RelativeDiscount(.1M)));
 
-    public IDiscount OnTopic(string topic, IDiscount other) => new TitleContentDiscount(topic, other);
-    public IDiscount OnBooksBy(Person author, IDiscount other) => new BookAuthorDiscount(author, other);
     private IDiscount RelativeDiscount(decimal fact) => new RelativeDiscount(fact);
+    private IDiscount OnTopic(string topic, IDiscount other) => new TitleContentDiscount(topic, other);
+    private IDiscount OnBooksBy(Person author, IDiscount other) => new BookAuthorDiscount(author, other);
+    
     private IDiscount OnAllBooks(IDiscount other) => new AllBooksDiscount(other);
     
     private IDiscount FirstOf(params IDiscount[] discounts)
