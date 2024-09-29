@@ -7,7 +7,7 @@ public class RelativeDiscount : IDiscount
     private readonly decimal _factor;
 
     public RelativeDiscount(decimal factor) =>
-        _factor = factor > 0 && factor < 1 ? factor
+        _factor = factor is > 0 and < 1 ? factor
         : throw new ArgumentException("Multiplying factor must be positive and smaller than 1.");
 
     public IEnumerable<DiscountApplication> GetDiscountAmounts(Money price, DiscountContext context) =>
