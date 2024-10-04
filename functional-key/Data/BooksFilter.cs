@@ -4,7 +4,12 @@ namespace Demo.Data;
 
 static class BooksFiltering
 {
-    public static Filter<BookType> FilterBooks =>
-        async (DataSource<BookType> dataSource, string phrase) =>
-        (await dataSource()).Where(b => b.Title.Contains(phrase, StringComparison.InvariantCultureIgnoreCase));
+    public static Filter<BookType> FilterBooks
+    {
+        get
+        {
+            return async (DataSource<BookType> dataSource, string phrase) =>
+                (await dataSource()).Where(b => b.Title.Contains(phrase, StringComparison.InvariantCultureIgnoreCase));
+        }
+    }
 }
