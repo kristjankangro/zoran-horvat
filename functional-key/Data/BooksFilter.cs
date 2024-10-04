@@ -4,7 +4,7 @@ namespace Demo.Data;
 
 static class BooksFiltering
 {
-    public static Filter<BookType> FilterBooks
+    public static Filter<BookType> BooksFiltered
     {
         get
         {

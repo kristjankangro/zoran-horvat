@@ -4,7 +4,10 @@ namespace Demo.Data;
 
 static class BooksData
 {
-    
+    /// <summary>
+    /// Get data delegate property
+    /// </summary>
+    /// <returns>Async method </returns>
     public static DataSource<BookType> GetBooks
     {
         //public delegate Task<IEnumerable<T>> DataSource<T>(); method signature match

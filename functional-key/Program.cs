@@ -1,5 +1,5 @@
 ﻿using Demo.Data;
-using static Demo.Data.BooksData;
 using static Demo.Data.BooksFiltering;
+using static Demo.Data.BooksData;
 
-await Runner.PromptAndReport(FilterBooks.For(GetBooks));
+await Runner.PromptAndReport(BooksFiltered.For(GetBooks));
