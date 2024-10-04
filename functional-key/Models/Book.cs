@@ -1,9 +1,18 @@
 namespace Demo.Models;
 
-public record BookType(string Title, NameType[] Authors)
+public class BookType(string Title, NameType[] Authors)
 {
     public override string ToString() =>
         $"{Title} by {string.Join(", ", Authors.Select(a => a.ToString()))}";
+
+    public string Title { get; init; } = Title;
+    public NameType[] Authors { get; init; } = Authors;
+
+    public void Deconstruct(out string Title, out NameType[] Authors)
+    {
+        Title = this.Title;
+        Authors = this.Authors;
+    }
 }
 
 public static class Book
