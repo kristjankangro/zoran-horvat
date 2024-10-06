@@ -5,7 +5,7 @@
 2. Create list view, Razor view 
 3. Replace prototype ViewModel with BookHeader model
 4. Create domain model Book with Title only, pretending that AuthorName is complex implementation
-5. 
+5. ...9.40
 
 ## Video
 
