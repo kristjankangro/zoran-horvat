@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "extension-methods-advanced"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "functional", "functional-key\functional.csproj", "{904F028F-F9AF-4401-9400-F0CE432F2B82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore", "Bookstore-Favor-top-down-domain-modeling\Bookstore\Bookstore.csproj", "{616D6141-58DF-404F-8F88-174CDB7A69C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,5 +66,11 @@ Global
 		{904F028F-F9AF-4401-9400-F0CE432F2B82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{904F028F-F9AF-4401-9400-F0CE432F2B82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{904F028F-F9AF-4401-9400-F0CE432F2B82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{616D6141-58DF-404F-8F88-174CDB7A69C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{616D6141-58DF-404F-8F88-174CDB7A69C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{616D6141-58DF-404F-8F88-174CDB7A69C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{616D6141-58DF-404F-8F88-174CDB7A69C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal
