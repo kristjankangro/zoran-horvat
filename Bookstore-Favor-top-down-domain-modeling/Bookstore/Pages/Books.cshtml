@@ -1,0 +1,24 @@
+﻿@page
+@model BooksModel
+@{
+    ViewData["Title"] = "Books";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Author</th>
+            <th scope="col">Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var (book, offset) in Model.Books.Select((b, i) => (b, i)))
+        {
+            <tr>
+                <td>@(offset + 1)</td>
+                <td>@book.AuthorName</td>
+                <td>@book.Title</td>
+            </tr>
+        }
+    </tbody>
+</table>
