@@ -1,5 +1,12 @@
 # Source Code Bundle
 
+## Action list
+1. Create prototype ViewModel (tuple)
+2. Create list view, Razor view 
+3. Replace prototype ViewModel with BookHeader model
+4. Create domain model Book with Title only, pretending that AuthorName is complex implementation
+5. 
+
 ## Video
 
 This package contains source code for the video [Favor Top-Down Domain Modeling in ASP.NET with Entity Framework Core](https://youtu.be/oXyXHJyltjA).

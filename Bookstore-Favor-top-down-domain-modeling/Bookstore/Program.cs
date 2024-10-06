@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<BookstoreContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BookstoreConnection")));
+// builder.Services.AddDbContext<BookstoreContext>(options =>
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("BookstoreConnection")));
 
 var app = builder.Build();
 
