@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "functional", "functional-ke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore", "Bookstore-Favor-top-down-domain-modeling\Bookstore\Bookstore.csproj", "{616D6141-58DF-404F-8F88-174CDB7A69C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eliminate-data-clumps", "eliminate-data-clumps\eliminate-data-clumps.csproj", "{A06D24FD-0B17-4096-B609-6B6E1AC7C7C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{616D6141-58DF-404F-8F88-174CDB7A69C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{616D6141-58DF-404F-8F88-174CDB7A69C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{616D6141-58DF-404F-8F88-174CDB7A69C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A06D24FD-0B17-4096-B609-6B6E1AC7C7C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A06D24FD-0B17-4096-B609-6B6E1AC7C7C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A06D24FD-0B17-4096-B609-6B6E1AC7C7C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A06D24FD-0B17-4096-B609-6B6E1AC7C7C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
