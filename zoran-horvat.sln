@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bookstore", "Bookstore-Favo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eliminate-data-clumps", "eliminate-data-clumps\eliminate-data-clumps.csproj", "{A06D24FD-0B17-4096-B609-6B6E1AC7C7C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApi", "DemoApi\DemoApi.csproj", "{7CC37371-AA10-4F1F-9DCA-C9D8364BCF44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApi-polymorphism", "DemoApi-polymorphism\DemoApi-polymorphism.csproj", "{7CC37371-AA10-4F1F-9DCA-C9D8364BCF44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

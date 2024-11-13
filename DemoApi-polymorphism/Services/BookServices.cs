@@ -2,6 +2,7 @@
 using Demo.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
+using DemoApi.Models;
 
 namespace Demo.Services;
 
@@ -11,34 +12,11 @@ public class BookServices
 
     public BookServices(BookstoreDbContext dbContext) => _dbContext = dbContext;
 
-    public async Task<IEnumerable<Book>> GetBooksFromNewest(int authorId)
-    {
-        List<Book> books = await _dbContext.Books
+    public async Task<IEnumerable<Book>> GetBooksFromNewest(int authorId) =>
+        (await _dbContext.Books
             .Where(book => book.Authors.Any(author => author.AuthorId == authorId))
-            .ToListAsync();
-        
-        List<DateOnly> dates = new();
-        foreach (Book book in books)
-        {
-            DateOnly publicationDate = DateOnly.MaxValue;
-            if (book.Publication.PublicationDate is PartialDate rawDate)
-            {
-                int year = rawDate.Date.Year;
-                int month = rawDate.IsMonthSpecified ? rawDate.Date.Month : 1;
-                int day = rawDate.IsDaySpecified ? rawDate.Date.Day : 1;
-                publicationDate = new(year, month, day);
-            }
-            dates.Add(publicationDate);
-        }
+            .ToListAsync()).OrderByDescending(book => book.Publication.GetBeginning(DateOnly.MaxValue));
 
-        books = books.Zip(dates, (book, date) => (book, date))
-            .OrderByDescending(tuple => tuple.date)
-            .Select(tuple => tuple.book)
-            .ToList();
-        
-        return books;
-    }
-    
     public async Task<Book> CreateBook(string title, string cultureName, PublicationInfo publication, Edition edition, IEnumerable<Author> authors)
     {
         List<BookAuthor> bookAuthors = authors

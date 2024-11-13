@@ -1,4 +1,4 @@
-namespace Demo.Models;
+namespace DemoApi.Models;
 
 public class PublicationInfo
 {
@@ -16,4 +16,6 @@ public class PublicationInfo
 
     public PublicationInfo(PartialDate? publicationDate, bool isPublished) =>
         (PublicationDate, IsPublished) = (publicationDate, isPublished);
+    
+    public DateOnly GetBeginning(DateOnly orElse) => PublicationDate?.Beginning ?? orElse;
 }
