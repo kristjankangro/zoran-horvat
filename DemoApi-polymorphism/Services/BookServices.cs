@@ -1,10 +1,10 @@
-﻿using Demo.Models;
+﻿using System.Globalization;
 using Demo.Data;
-using Microsoft.EntityFrameworkCore;
-using System.Globalization;
+using Demo.Models;
 using DemoApi.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Demo.Services;
+namespace DemoApi.Services;
 
 public class BookServices
 {
